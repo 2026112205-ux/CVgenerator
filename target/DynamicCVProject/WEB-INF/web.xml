@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ==========================================================================
+    DEPLOYMENT DESCRIPTOR  -  WEB-INF/web.xml
+    ==========================================================================
+    Configures the MVC web components of the Dynamic Online CV Builder:
+
+      1. <servlet>            : declares CVServlet and its fully-qualified class
+      2. <servlet-mapping>    : maps the servlet to the URL pattern /CVServlet
+      3. <welcome-file-list>  : cvForm.jsp is the landing page of the app
+      4. <session-config>     : 30-minute timeout (best practice)
+
+    Servlet API version 6.0  ->  Apache Tomcat 10.1.x (Jakarta EE 10)
+    ==========================================================================
+-->
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <!-- Application identity shown by the container -->
+    <display-name>Dynamic Online CV Builder</display-name>
+    <description>CSC584 Individual Assignment - MVC Dynamic CV Builder</description>
+
+    <!-- ==================================================================
+         1. SERVLET DECLARATION
+         ================================================================== -->
+    <servlet>
+        <servlet-name>CVServlet</servlet-name>
+        <servlet-class>com.cvbuilder.controller.CVServlet</servlet-class>
+        <!-- Load the servlet at start-up so the first request is fast -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- ==================================================================
+         2. SERVLET MAPPING  (form + sample button both target /CVServlet)
+         ================================================================== -->
+    <servlet-mapping>
+        <servlet-name>CVServlet</servlet-name>
+        <url-pattern>/CVServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ==================================================================
+         3. WELCOME PAGE  ->  cvForm.jsp is served as the default page
+         ================================================================== -->
+    <welcome-file-list>
+        <welcome-file>cvForm.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ==================================================================
+         4. SESSION TIMEOUT (30 minutes)
+         ================================================================== -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+</web-app>
